@@ -2,6 +2,7 @@ import requests
 import pandas as pd
 import cloudscraper
 from datetime import datetime, timezone
+from io import StringIO
 
 # ---- CONFIG: add your teams here ----
 # (team_id, season_id, label)
@@ -33,8 +34,8 @@ for team_id, season_id, label in TARGETS:
     resp.raise_for_status()
 
     # Player table has a PPGA column; goalie table has GAA
-    players = pd.read_html(resp.text, match="PPGA")[0]
-    goalies = pd.read_html(resp.text, match="GAA")[0]
+    players = pd.read_html(StringIO(resp.text), match="PPGA")[0]
+    goalies = pd.read_html(StringIO(resp.text), match="GAA")[0]
 
     for df in (players, goalies):
         df["team_id"] = team_id
