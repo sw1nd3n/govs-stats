@@ -1,5 +1,6 @@
 import requests
 import pandas as pd
+import cloudscraper
 from datetime import datetime, timezone
 
 # ---- CONFIG: add your teams here ----
@@ -24,9 +25,11 @@ HEADERS = {
 
 player_frames, goalie_frames = [], []
 
+scraper = cloudscraper.create_scraper()
+
 for team_id, season_id, label in TARGETS:
     url = BASE.format(team=team_id, season=season_id)
-    resp = requests.get(url, headers=HEADERS, timeout=30)
+    resp = scraper.get(url, timeout=30)
     resp.raise_for_status()
 
     # Player table has a PPGA column; goalie table has GAA
