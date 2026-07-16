@@ -1,6 +1,7 @@
 import requests
 import pandas as pd
 import cloudscraper
+import time
 from datetime import datetime, timezone
 from io import StringIO
 
@@ -40,12 +41,21 @@ scraper = cloudscraper.create_scraper()
 
 for team_id, season_id, label in TARGETS:
     url = BASE.format(team=team_id, season=season_id)
-    resp = scraper.get(url, timeout=30)
-    resp.raise_for_status()
+    try:
+        for attempt in range(4):
+            resp = scraper.get(url, timeout=30)
+            if resp.status_code == 200:
+                break
+            print(f"WARN: {resp.status_code} on {url}, retry {attempt + 1}")
+            time.sleep(15)
+        resp.raise_for_status()
 
-    # Player table has a PPGA column; goalie table has GAA
-    players = pd.read_html(StringIO(resp.text), match="PPGA")[0]
-    goalies = pd.read_html(StringIO(resp.text), match="GAA")[0]
+        players = pd.read_html(StringIO(resp.text), match="PPGA")[0]
+        goalies = pd.read_html(StringIO(resp.text), match="GAA")[0]
+    except Exception as e:
+        print(f"SKIP: {label} ({url}) — {type(e).__name__}: {e}")
+        time.sleep(3)
+        continue
 
     for df in (players, goalies):
         df["team_id"] = team_id
@@ -56,6 +66,7 @@ for team_id, season_id, label in TARGETS:
     player_frames.append(players)
     goalie_frames.append(goalies)
     print(f"OK: {label} — {len(players)} skaters, {len(goalies)} goalies")
+    time.sleep(3)
 
 pd.concat(player_frames).to_csv("player_stats.csv", index=False)
 pd.concat(goalie_frames).to_csv("goalie_stats.csv", index=False)
