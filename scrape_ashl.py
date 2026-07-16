@@ -62,6 +62,7 @@ for team_id, label in TEAMS:
                         "season_name": sched_name,
                         "team_id": team_id,
                         "label": label,
+                        "source": "ASHL",
                         "scraped_at": datetime.now(timezone.utc).isoformat(),
                     }
                     for s in entry.get("stats", []):
