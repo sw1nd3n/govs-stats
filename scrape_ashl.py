@@ -11,7 +11,7 @@ SEED = os.environ["ASHL_SEED_TOKEN"]
 # ---- CONFIG: ASHL teams ----
 # (team_id, label)
 TEAMS = [
-    ("vn1dxgLkcLT896eN", "VS = D"),
+    ("vn1dxgLkcLT896eN", "VS - D"),
     ("1S9vxCG4ogfXwn8U", "VS - C"),
 ]
 
