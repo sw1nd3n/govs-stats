@@ -5,25 +5,41 @@ import time
 from datetime import datetime, timezone
 from io import StringIO
 
+NCHL = "https://cstats.nchl.com/team/{team}/stats/?season={season}"
+WRAHL = "https://wrahl.com/team/{team}/stats/?season={season}"
+ASUMMERHL = "https://albertasummerhockey.com/team/{team}/stats/?season={season}"
+
 # ---- CONFIG: add your teams here ----
 # (team_id, season_id, label)
 TARGETS = [
-    (25649, 163, "VS - E"),
-    (25649, 164, "VS - E"),
-    (25649, 165, "VS - E"),
-    (25649, 166, "VS - E"),
-    (25655, 163, "VS - F"),
-    (25655, 164, "VS - F"),
-    (25655, 165, "VS - F"),
-    (25655, 166, "VS - F"),
-    (28185, 163, "VS - G"),
-    (28185, 164, "VS - G"),
-    (28185, 165, "VS - G"),
-    (28185, 166, "VS - G"),
-    (30960, 163, "VS - H"),
-    (30960, 164, "VS - H"),
-    (30960, 165, "VS - H"),
-    (30960, 166, "VS - H")
+    # ---- NCHL Teams Here ----
+    (25649, 163, "VS - E", NCHL),
+    (25649, 164, "VS - E", NCHL),
+    (25649, 165, "VS - E", NCHL),
+    (25649, 166, "VS - E", NCHL),
+    (25655, 163, "VS - F", NCHL),
+    (25655, 164, "VS - F", NCHL),
+    (25655, 165, "VS - F", NCHL),
+    (25655, 166, "VS - F", NCHL),
+    (28185, 163, "VS - G", NCHL),
+    (28185, 164, "VS - G", NCHL),
+    (28185, 165, "VS - G", NCHL),
+    (28185, 166, "VS - G", NCHL),
+    (30960, 163, "VS - H", NCHL),
+    (30960, 164, "VS - H", NCHL),
+    (30960, 165, "VS - H", NCHL),
+    (30960, 166, "VS - H", NCHL),
+    # ---- WRAHL Teams Here ----
+    (10828, 113, "VS - B", WRAHL),
+    (10828, 114, "VS - B", WRAHL),
+    (10828, 117, "VS - B", WRAHL),
+    (10828, 118, "VS - B", WRAHL),
+    (10828, 119, "VS - B", WRAHL),
+    (11835, 113, "VS - A", WRAHL),
+    (11835, 114, "VS - A", WRAHL),
+    (11835, 117, "VS - A", WRAHL),
+    # ---- Adult Summer Hockey Teams Here ----
+    (3020, 64, "VS - A", ASUMMERHL),
     
 ]
 
