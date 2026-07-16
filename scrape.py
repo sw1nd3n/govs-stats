@@ -43,7 +43,6 @@ TARGETS = [
     
 ]
 
-BASE = "https://cstats.nchl.com/team/{team}/stats/?season={season}"
 HEADERS = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36",
     "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
@@ -55,8 +54,8 @@ player_frames, goalie_frames = [], []
 
 scraper = cloudscraper.create_scraper()
 
-for team_id, season_id, label in TARGETS:
-    url = BASE.format(team=team_id, season=season_id)
+for team_id, season_id, label, base in TARGETS:
+    url = base.format(team=team_id, season=season_id)
     try:
         for attempt in range(4):
             resp = scraper.get(url, timeout=30)
@@ -78,6 +77,7 @@ for team_id, season_id, label in TARGETS:
         df["season_id"] = season_id
         df["label"] = label
         df["scraped_at"] = datetime.now(timezone.utc).isoformat()
+        df["source"] = base
 
     player_frames.append(players)
     goalie_frames.append(goalies)
