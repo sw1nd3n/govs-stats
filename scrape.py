@@ -7,13 +7,23 @@ from io import StringIO
 # ---- CONFIG: add your teams here ----
 # (team_id, season_id, label)
 TARGETS = [
-    (25649, 163, "VSIII - 25/26 Reg Season"),
-    (25649, 164, "VSIII - 25/26 Playoffs"),
-    (25649, 165, "VSII - 26 Summer Reg Season"),
-    (25649, 166, "VSII - 26 Summer Playoffs"),
-    # (25649, 165, "Victorious Secrets II - 2026 Summer"),
-    # (25655, 165, "Victorious Secrets III - 2026 Summer"),
-    # add the rest of your Sportzone teams here
+    (25649, 163, "VS - E"),
+    (25649, 164, "VS - E"),
+    (25649, 165, "VS - E"),
+    (25649, 166, "VS - E"),
+    (25655, 163, "VS - F"),
+    (25655, 164, "VS - F"),
+    (25655, 165, "VS - F"),
+    (25655, 166, "VS - F"),
+    (28185, 163, "VS - G"),
+    (28185, 164, "VS - G"),
+    (28185, 165, "VS - G"),
+    (28185, 166, "VS - G"),
+    (30960, 163, "VS - H"),
+    (30960, 164, "VS - H"),
+    (30960, 165, "VS - H"),
+    (30960, 166, "VS - H")
+    
 ]
 
 BASE = "https://cstats.nchl.com/team/{team}/stats/?season={season}"
