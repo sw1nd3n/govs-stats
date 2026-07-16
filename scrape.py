@@ -8,6 +8,7 @@ from io import StringIO
 NCHL = "https://cstats.nchl.com/team/{team}/stats/?season={season}"
 WRAHL = "https://wrahl.com/team/{team}/stats/?season={season}"
 ASUMMERHL = "https://albertasummerhockey.com/team/{team}/stats/?season={season}"
+LEAGUE_NAMES = {NCHL: "NCHL", WRAHL: "WRAHL", ASUMMERHL: "ASUMMERHL"}
 
 # ---- CONFIG: add your teams here ----
 # (team_id, season_id, label)
@@ -77,7 +78,7 @@ for team_id, season_id, label, base in TARGETS:
         df["season_id"] = season_id
         df["label"] = label
         df["scraped_at"] = datetime.now(timezone.utc).isoformat()
-        df["source"] = base
+        df["source"] = LEAGUE_NAMES[base]
 
     player_frames.append(players)
     goalie_frames.append(goalies)
